@@ -1,5 +1,5 @@
 # **CIFAR-100 Image Classification with Inception-ResNet-v2**  
-**Best Validation Accuracy: 78.30%**  
+**Best Validation Accuracy: 74.80%**  
 
 ---
 
