@@ -1,45 +1,33 @@
 # **CIFAR-100 Image Classification with Inception-ResNet-v2**  
-**Best Validation Accuracy: 74.30%**  
+**Best Validation Accuracy: 78.30%**  
 
 ---
 
 ## **Project Overview**  
 This project implements an **Inception-ResNet-v2 inspired architecture** for **CIFAR-100 image classification**. The model combines:  
-- **Inception modules** (multi-scale feature extraction)  
-- **Residual connections** (improved gradient flow)  
-- **Weight Standardization** (replaces BatchNorm)  
-- **Group Normalization** (stable training)  
-- **Label Smoothing** (regularization)  
-- **Mixed-Precision Training (AMP)**  
+
+| Component               | Implementation Details          | Benefit                          |
+|-------------------------|----------------------------------|----------------------------------|
+| **Inception Modules**   | Multi-scale feature extraction   | Captures patterns at different scales |
+| **Residual Connections**| Skip connections in all blocks   | Improves gradient flow           |
+| **Weight Standardization** | Replaces BatchNorm           | More stable training             |
+| **Group Normalization** | 32 groups normalization         | Batch-size independent           |
+| **Label Smoothing**     | ε=0.1 regularization            | Prevents overconfidence          |
+| **Mixed-Precision (AMP)**| FP16 training with GradScaler  | Faster training, less memory     |
+
 
 Optimized for **CIFAR-100** (32×32 images, 100 classes), the implementation includes **early stopping**, **cosine LR scheduling**, and **AdamW optimization**.
 
 ---
 
+
 ## **Model Architecture**  
+A modified **Inception-ResNet-v2** adapted for CIFAR-100, featuring:  
+- **Weight Standardized Convolutions** (no BatchNorm)  
+- **Group Normalization** + **Pre-Activation** blocks  
+- **Residual shortcuts** in all Inception modules  
 
-### **Key Components**  
-1. **Inception-ResNet Blocks**  
-   - **Stem**: Modified for CIFAR-32 (3×3 conv → GroupNorm → ReLU).  
-   - **Inception-A**: Parallel 1×1, 3×3, and 5×5 convolutions with residual shortcuts.  
-   - **Inception-B**: Asymmetric convolutions (1×7 → 7×1) for wider receptive fields.  
-   - **Inception-C**: Depthwise convolutions for efficiency.  
-
-2. **Residual Adaptations**  
-   - Each Inception block includes **skip connections** (ResNet-style).  
-   - **Pre-activation structure**: GN → ReLU → Conv.  
-
-3. **Reduction Blocks**  
-   - **Reduction-A**: Between Inception-A and Inception-B (stride=2).  
-   - **Reduction-B**: Before final pooling (max + avg pooling).  
-
-4. **Head**  
-   - **Global Average Pooling** → **Dense (2048 → 100)**.  
-
-### **Inception-ResNet-v2 Modifications**  
-✔ **Downscaled for CIFAR-100** (original designed for 299×299 inputs).  
-✔ **Replaced BatchNorm with GroupNorm + Weight Standardization** (better for small batches).  
-✔ **Simplified stem** (no aggressive downsampling).  
+➡️ **See full details**: [docs/model_architecture.md](docs/model_architecture.md)  
 
 ---
 
@@ -52,27 +40,28 @@ Optimized for **CIFAR-100** (32×32 images, 100 classes), the implementation inc
 | Epochs             | 1000 (Early Stopping)     |  
 | Learning Rate      | 1e-3 (Cosine Annealing)   |  
 | Optimizer          | AdamW (Weight Decay=1e-3) |  
-| Label Smoothing    | 0.1                       |  
+| Label Smoothing    | 0.08                      |  
 | Early Stopping Patience | 15 epochs                 |  
 
 
 ### **Training Techniques**  
-✔ **Mixed-Precision (AMP)** → Faster training with `autocast` + `GradScaler`.  
-✔ **Cosine Annealing LR** → Smooth decay.  
-✔ **Augmentations** → Random crops + flips.  
+- **Mixed-Precision (AMP)** → Faster training with `autocast` + `GradScaler`.  
+- **Cosine Annealing LR** → Smooth decay.  
+- **Augmentations** → Random crops + flips.  
 
 ---
 
 ## **Results**  
-- **Best Val Accuracy**: **74.30%**  
-- **Training Time**: ~300 epochs (early stopping).  
+- **Best Val Accuracy**: **74.8%**  
+- **Training Time**: ~90 epochs (early stopping).  
 - **Loss Curve**:  
   ![Loss Curve](./generated_images/loss_function.png)  
-
+- **Predictions**:  
+  ![Loss Curve](./generated_images/label_predictions.png) 
 ---
 
 ### **Conclusion**  
-This **Inception-ResNet-v2 variant** achieves **74.30% accuracy** on CIFAR-100 by:  
+This **Inception-ResNet-v2 variant** achieves **74.8% accuracy** on CIFAR-100 by:  
 - Combining **Inception multi-scale processing** with **ResNet shortcuts**.  
 - Using **GroupNorm + Weight Standardization** for stability.  
 - Optimizing training with **AMP + AdamW**.  
