@@ -103,4 +103,4 @@ ReductionB(
    - All blocks use GN→ReLU→Conv ordering
    - Improves gradient flow vs original post-activation
 
-This architecture preserves Inception's multi-scale processing while ResNet's skip connections ease training, achieving 74.8% accuracy on CIFAR-100 with efficient 32×32 adaptation.
+This architecture preserves Inception's multi-scale processing while ResNet's skip connections ease training, achieving 75.7% accuracy on CIFAR-100 with efficient 32×32 adaptation.

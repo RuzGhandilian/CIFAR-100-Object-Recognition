@@ -1,5 +1,5 @@
 # **CIFAR-100 Image Classification with Inception-ResNet-v2**  
-**Best Validation Accuracy: 74.80%**  
+**Best Validation Accuracy: 75.7%**  
 
 ---
 
@@ -40,7 +40,7 @@ A modified **Inception-ResNet-v2** adapted for CIFAR-100, featuring:
 | Epochs             | 1000 (Early Stopping)     |  
 | Learning Rate      | 1e-3 (Cosine Annealing)   |  
 | Optimizer          | AdamW (Weight Decay=1e-3) |  
-| Label Smoothing    | 0.08                      |  
+| Label Smoothing    | 0.05                      |  
 | Early Stopping Patience | 15 epochs                 |  
 
 
@@ -52,7 +52,7 @@ A modified **Inception-ResNet-v2** adapted for CIFAR-100, featuring:
 ---
 
 ## **Results**  
-- **Best Val Accuracy**: **74.8%**  
+- **Best Val Accuracy**: **75.7%**  
 - **Training Time**: ~90 epochs (early stopping).  
 - **Loss Curve**:  
   ![Loss Curve](./generated_images/loss_function.png)  
@@ -61,7 +61,7 @@ A modified **Inception-ResNet-v2** adapted for CIFAR-100, featuring:
 ---
 
 ### **Conclusion**  
-This **Inception-ResNet-v2 variant** achieves **74.8% accuracy** on CIFAR-100 by:  
+This **Inception-ResNet-v2 variant** achieves **75.7% accuracy** on CIFAR-100 by:  
 - Combining **Inception multi-scale processing** with **ResNet shortcuts**.  
 - Using **GroupNorm + Weight Standardization** for stability.  
 - Optimizing training with **AMP + AdamW**.  
