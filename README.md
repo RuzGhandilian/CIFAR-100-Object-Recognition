@@ -66,10 +66,7 @@ A modified **Inception-ResNet-v2** adapted for CIFAR-100, featuring:
    - Training loss now better predicts validation performance  
 
 2. **Performance Gain**  
-   | Metric          | Baseline (No MixUp) | With MixUp (α=0.4) |  
-   |-----------------|---------------------|--------------------|  
-   | Val Accuracy    | 75.7%               | **79.12%**         |  
-   | Generalization  | Overfitting         | Stable             |  
+   
 
   | Model          | Val Acc | Train Time | Checkpoint | Generalization| 
   |---------------|---------|------------|------------|  --------------|
